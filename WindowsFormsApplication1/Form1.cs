@@ -89,5 +89,30 @@ namespace WindowsFormsApplication1
                 }
             }
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Bitmap bmp1 = new Bitmap(pictureBox1.Image);
+            Bitmap bmp3 = new Bitmap(bmp.Width, bmp.Height);
+            for (int i = 0; i < bmp.Width; i++)
+            {
+                Color c = new Color();
+
+                for (int j = 0; j < bmp.Height; j++)
+                {
+                    c = bmp1.GetPixel(i, j);
+                    if ((c.R > c1.R - 5 && c.R < c1.R + 5) && (c.G > c1.G - 5 && c.G < c1.G + 5) && (c.B > c1.B - 5 && c.B < c1.B + 5))
+                    {
+
+                        bmp3.SetPixel(i, j, Color.Red);
+                    }
+                    else
+                    {
+                        bmp3.SetPixel(i, j, Color.FromArgb(c.R, c.G, c.B));
+                    }
+                    pictureBox1.Image = bmp3;
+                }
+            }
+        }
     }
 }
