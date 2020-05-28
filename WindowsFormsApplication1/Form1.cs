@@ -14,6 +14,7 @@ namespace WindowsFormsApplication1
     public partial class Form1 : Form
     {
         Bitmap bmp;
+        Color c1;
         public Form1()
         {
             InitializeComponent();
@@ -44,7 +45,49 @@ namespace WindowsFormsApplication1
             textBox1.Text = c.R.ToString();
             textBox2.Text = c.G.ToString();
             textBox3.Text = c.B.ToString();
-            textBox4.BackColor=c;
+            c1 = c;
+            //textBox4.BackColor=c;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Bitmap bmp2 = new Bitmap(bmp.Width, bmp.Height);
+            for (int i = 0; i < bmp.Width; i++)
+            {
+                Color c = new Color();
+
+                for (int j = 0; j < bmp.Height; j++)
+                {
+                    c = bmp.GetPixel(i, j);
+                    bmp2.SetPixel(i, j, Color.FromArgb(c.R, 0, 0));
+                }
+                pictureBox1.Image = bmp2;
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Bitmap bmp1 = new Bitmap(pictureBox1.Image);
+            Bitmap bmp3 = new Bitmap(bmp.Width, bmp.Height);
+            for (int i = 0; i < bmp.Width; i++)
+            {
+                Color c = new Color();
+
+                for (int j = 0; j < bmp.Height; j++)
+                {
+                    c = bmp1.GetPixel(i, j);
+                    if (c.R == c1.R && c.G == c1.G && c.B == c1.B)
+                    {
+
+                        bmp3.SetPixel(i, j, Color.Red);
+                    }
+                    else
+                    {
+                        bmp3.SetPixel(i, j, Color.FromArgb(c.R, c.G, c.B));
+                    }
+                    pictureBox1.Image = bmp3;
+                }
+            }
         }
     }
 }
