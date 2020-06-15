@@ -42,12 +42,29 @@ namespace WindowsFormsApplication1
         private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
         {
             // Muestra los numeros de RGB de un pixel seleccionado por el mouse
+            int R2, G2, B2;
+            R2 = 0;
+            G2 = 0;
+            B2 = 0;
             Color c = new Color();
-            c = bmp.GetPixel(e.X, e.Y);
-            textBox1.Text = c.R.ToString();
-            textBox2.Text = c.G.ToString();
-            textBox3.Text = c.B.ToString();
-            c1 = c;
+            for (int i = e.X; i < e.X+5; i++)
+            {
+                for (int j = e.Y; j < e.Y+5; j++)
+                {
+                    c = bmp.GetPixel(i, j);
+                    R2 = R2 + c.R;
+                    G2 = G2 + c.G;
+                    B2 = B2 + c.B;
+                }
+            }
+            R2 = R2 /25;
+            G2 = G2/25;
+            B2 = B2/25;
+            textBox1.Text = R2.ToString();
+            textBox2.Text = G2.ToString();
+            textBox3.Text = B2.ToString();
+            // Modificamos el valor rgb seleccionado por el mouse el promedio de los 5pixeles a su alrededor
+            c1 = Color.FromArgb(R2,G2,B2);
             //textBox4.BackColor=c;
         }
 
@@ -55,10 +72,9 @@ namespace WindowsFormsApplication1
         {
             // Cambia la imagen para que sea solo de color rojo
             Bitmap bmp2 = new Bitmap(bmp.Width, bmp.Height);
+            Color c = new Color();
             for (int i = 0; i < bmp.Width; i++)
             {
-                Color c = new Color();
-
                 for (int j = 0; j < bmp.Height; j++)
                 {
                     c = bmp.GetPixel(i, j);
@@ -70,7 +86,7 @@ namespace WindowsFormsApplication1
 
         private void button3_Click(object sender, EventArgs e)
         {
-            // Cambia de color color a los pixeles que se igual al pixel seleccionado con el mouse
+            // Cambia de color  a los pixeles que se igual al pixel seleccionado con el mouse
             Bitmap bmp1 = new Bitmap(pictureBox1.Image);
             Bitmap bmp3 = new Bitmap(bmp.Width, bmp.Height);
             for (int i = 0; i < bmp.Width; i++)
